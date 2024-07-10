@@ -55,7 +55,7 @@ if adicionar_venda:
     atualizar_id_vendas()
     
     # Salva o DataFrame em um arquivo CSV atualizado
-    df_vendas.to_csv('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/dataset/padaria_venda.csv', decimal='.', sep=',', index=True)
+    df_vendas.to_csv('dataset/padaria_venda.csv', decimal='.', sep=',', index=True)
     
     # Mostra o DataFrame atualizado na interface
     st.dataframe(df_vendas)
@@ -74,7 +74,7 @@ if not df_vendas.empty:
         atualizar_id_vendas()
         
         # Salva o DataFrame em um arquivo CSV atualizado
-        df_vendas.to_csv('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/dataset/padaria_venda.csv', decimal='.', sep=',', index=True)
+        df_vendas.to_csv('dataset/padaria_venda.csv', decimal='.', sep=',', index=True)
         
         # Mostra o DataFrame atualizado na interface
         st.dataframe(df_vendas)
