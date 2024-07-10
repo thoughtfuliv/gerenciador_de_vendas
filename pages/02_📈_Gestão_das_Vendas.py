@@ -1,33 +1,34 @@
 import pandas as pd
 import streamlit as st
-from utilidades import leitura_de_dados
 from datetime import datetime
+from utilidades import logo
+from utilidades import contatos
 
-st.sidebar.markdown("Desenvolvido por [Lívia C.](https://br.linkedin.com/in/l%C3%ADvia-pinheiro-0a7a45201?trk=public_profile_browsemap)")
+logo()
+contatos()
 
-# Verifica se 'dados' está inicializado em session_state
-if 'dados' not in st.session_state:
-    st.session_state['dados'] = None
+# Carregar os DataFrames diretamente dos arquivos CSV
+df_precos = pd.read_csv('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/dataset/padaria_preco.csv', decimal='.', sep=',', index_col=0, parse_dates=True)
+df_vendas = pd.read_csv('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/dataset/padaria_venda.csv', decimal='.', sep=',', index_col='id_vendas', parse_dates=['data'])
 
-# Função para carregar os dados, ajuste conforme necessário
-leitura_de_dados()
+# Se df_vendas estiver vazio, inicializa com um DataFrame vazio
+if df_vendas.empty:
+    df_vendas = pd.DataFrame(columns=['data', 'produto', 'quantidade', 'modo_pagamento'])
 
-# Obtém os DataFrames de vendas e preços do session_state
-df_vendas = st.session_state['dados']['df_vendas']
-df_precos = st.session_state['dados']['df_precos']
-
-# Se df_vendas for None ou vazio, inicializa com um DataFrame vazio
-if df_vendas is None:
-    df_vendas = pd.DataFrame(columns=['id_vendas', 'data', 'produto', 'quantidade', 'modo_pagamento'])
+# Função para atualizar o id_vendas
+def atualizar_id_vendas():
+    df_vendas.reset_index(drop=True, inplace=True)
+    df_vendas['id_vendas'] = range(1, len(df_vendas) + 1)
+    df_vendas.set_index('id_vendas', inplace=True)
 
 # Interface do Streamlit
 st.markdown('## 📈 Gestão das Vendas')
 st.divider()
 
+# Adição de Vendas
 st.markdown('### Adição de Vendas')
 
-produto_adicionado = df_precos['produto'].to_list()
-
+produto_adicionado = df_precos['produto'].tolist()
 valor_produto_filtro = st.selectbox("Selecione o produto vendido:", produto_adicionado)
 
 quantidade_adicionado = st.selectbox("Selecione a quantidade vendida:", [1, 2, 3, 4, 5])
@@ -38,38 +39,44 @@ adicionar_venda = st.button("Adicionar")
 
 if adicionar_venda:
     data_adicionar = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+    
     nova_venda = pd.DataFrame({
+        'id_vendas': [df_vendas.index.max() + 1],  # Gerando o próximo id_vendas
         'data': [data_adicionar],
         'produto': [valor_produto_filtro],
         'quantidade': [quantidade_adicionado],
         'modo_pagamento': [valor_modo_filtro]
     })
     
+    # Concatenar nova venda ao DataFrame df_vendas
     df_vendas = pd.concat([df_vendas, nova_venda], ignore_index=True)
-
-    # Atualiza o DataFrame no session_state
-    st.session_state['dados']['df_vendas'] = df_vendas
-
-    # Salva o DataFrame em um arquivo CSV
-    df_vendas.to_csv('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/dataset/padaria_venda.csv', decimal='.', sep=',', index=False)
-
-    # Mostra o DataFrame atualizado na interface
-    st.dataframe(df_vendas)
-
-
-st.markdown('### Remoção de Vendas')
-
-valor_id_filtro = st.number_input("Selecione o id da venda a ser removida:", 0, len(df_vendas)-1)
-remover_venda = st.button("Remover")
-if remover_venda and valor_id_filtro is not None:
-    # Converte o índice para um número inteiro
-    indice_remover = int(valor_id_filtro)
     
-    # Remove a linha do DataFrame com base no índice selecionado
-    df_vendas = df_vendas.drop(index=indice_remover).reset_index(drop=True)
+    # Atualizar o id_vendas
+    atualizar_id_vendas()
     
     # Salva o DataFrame em um arquivo CSV atualizado
-    df_vendas.to_csv('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/dataset/padaria_venda.csv', decimal='.', sep=',', index=False)
-
+    df_vendas.to_csv('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/dataset/padaria_venda.csv', decimal='.', sep=',', index=True)
+    
     # Mostra o DataFrame atualizado na interface
     st.dataframe(df_vendas)
+
+# Remoção de Vendas
+st.markdown('### Remoção de Vendas')
+
+if not df_vendas.empty:
+    valor_id_filtro = st.number_input("Selecione o id da venda a ser removida:", 1, df_vendas.index.max())
+    remover_venda = st.button("Remover")
+    
+    if remover_venda:
+        df_vendas = df_vendas[df_vendas.index != valor_id_filtro].reset_index(drop=True)
+        
+        # Atualizar o id_vendas
+        atualizar_id_vendas()
+        
+        # Salva o DataFrame em um arquivo CSV atualizado
+        df_vendas.to_csv('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/dataset/padaria_venda.csv', decimal='.', sep=',', index=True)
+        
+        # Mostra o DataFrame atualizado na interface
+        st.dataframe(df_vendas)
+else:
+    st.write("Não há vendas para remover.")
