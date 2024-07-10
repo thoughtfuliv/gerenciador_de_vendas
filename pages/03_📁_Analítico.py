@@ -1,9 +1,11 @@
 import pandas as pd
 import streamlit as st
 from utilidades import leitura_de_dados
+from utilidades import logo
+from utilidades import contatos
 
-st.sidebar.markdown("Desenvolvido por [Lívia C.](https://br.linkedin.com/in/l%C3%ADvia-pinheiro-0a7a45201?trk=public_profile_browsemap)")
-
+logo()
+contatos()
 
 # Importando os dados para a página:
 
