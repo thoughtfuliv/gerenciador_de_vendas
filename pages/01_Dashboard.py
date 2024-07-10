@@ -10,16 +10,8 @@ import plotly.express as px
 logo()
 contatos()
 
-# Verifica se 'dados' está inicializado em session_state
-if 'dados' not in st.session_state:
-    st.session_state['dados'] = None
-
-# Função para carregar os dados, ajuste conforme necessário
-leitura_de_dados()
-
-# Obtém os DataFrames de vendas e preços do session_state
-df_vendas = st.session_state['dados']['df_vendas']
-df_precos = st.session_state['dados']['df_precos']
+df_precos = pd.read_csv('dataset/padaria_preco.csv', decimal='.', sep=',', index_col=0, parse_dates=True)
+df_vendas = pd.read_csv('dataset/padaria_venda.csv', decimal='.', sep=',', index_col='id_vendas', parse_dates=['data'])
 
 # Se df_vendas for None ou vazio, inicializa com um DataFrame vazio
 if df_vendas is None:
