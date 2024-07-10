@@ -8,8 +8,8 @@ logo()
 contatos()
 
 # Carregar os DataFrames diretamente dos arquivos CSV
-df_precos = pd.read_csv('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/dataset/padaria_preco.csv', decimal='.', sep=',', index_col=0, parse_dates=True)
-df_vendas = pd.read_csv('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/dataset/padaria_venda.csv', decimal='.', sep=',', index_col='id_vendas', parse_dates=['data'])
+df_precos = pd.read_csv('dataset/padaria_preco.csv', decimal='.', sep=',', index_col=0, parse_dates=True)
+df_vendas = pd.read_csv('dataset/padaria_venda.csv', decimal='.', sep=',', index_col='id_vendas', parse_dates=['data'])
 
 # Se df_vendas estiver vazio, inicializa com um DataFrame vazio
 if df_vendas.empty:
