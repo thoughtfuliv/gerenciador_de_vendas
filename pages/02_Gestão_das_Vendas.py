@@ -1,9 +1,11 @@
+# Importando as bibliotecas necessárias
 import pandas as pd
 import streamlit as st
 from datetime import datetime
 from utilidades import logo
 from utilidades import contatos
 
+# Importando os elementos da sidebar
 logo()
 contatos()
 
@@ -25,7 +27,7 @@ def atualizar_id_vendas():
 st.markdown('## 📈 Gestão das Vendas')
 st.divider()
 
-# Adição de Vendas
+# Módulo 1: Adição de Vendas
 st.markdown('### Adição de Vendas')
 
 produto_adicionado = df_precos['produto'].tolist()
@@ -60,7 +62,7 @@ if adicionar_venda:
     # Mostra o DataFrame atualizado na interface
     st.dataframe(df_vendas)
 
-# Remoção de Vendas
+# Módulo 2: Remoção de Vendas
 st.markdown('### Remoção de Vendas')
 
 if not df_vendas.empty:
