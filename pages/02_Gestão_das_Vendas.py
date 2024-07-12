@@ -40,7 +40,7 @@ valor_modo_filtro = st.selectbox("Selecione o modo de pagamento:", ["pix", "debi
 adicionar_venda = st.button("Adicionar")
 
 if adicionar_venda:
-    data_adicionar = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+    data_adicionar = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     
     nova_venda = pd.DataFrame({
         'id_vendas': [df_vendas.index.max() + 1],  # Gerando o próximo id_vendas
