@@ -17,12 +17,11 @@ def logo():
                 background-image: url("https://i.imgur.com/N1uEfmO.png");
                 background-repeat: no-repeat;
                 background-size: 50%;
-                padding-top: 180px;
                 background-position: center 50px;
             }
             [data-testid="stSidebarNav"]::before {
                 margin-left: 20px;
-                margin-top: 50px;
+                margin-top: 20px;
                 font-size: 30px;
                 position: relative;
                 top: 100px;
