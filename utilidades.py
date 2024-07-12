@@ -18,7 +18,7 @@ def logo():
                 background-repeat: no-repeat;
                 background-size: 50%;
                 padding-top: 180px;
-                padding-bottom: 10px;
+                padding-bottom: 20px;
                 background-position: center 50px;
             }
             [data-testid="stSidebarNav"]::before {
