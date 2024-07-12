@@ -16,7 +16,7 @@ def logo():
             [data-testid="stSidebarNav"] {
                 background-image: url("https://i.imgur.com/N1uEfmO.png");
                 background-repeat: no-repeat;
-                background-size: 50%;
+                background-size: 40%;
                 padding-top: 180px;
                 padding-bottom: 20px;
                 background-position: center 50px;
