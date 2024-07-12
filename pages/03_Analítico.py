@@ -1,9 +1,11 @@
+# Importando as bibliotecas necessárias
 import pandas as pd
 import streamlit as st
 from utilidades import leitura_de_dados
 from utilidades import logo
 from utilidades import contatos
 
+# Importando os elementos da sidebar
 logo()
 contatos()
 
@@ -17,7 +19,7 @@ leitura_de_dados()
 df_vendas = st.session_state['dados']['df_vendas']
 df_precos = st.session_state['dados']['df_precos']
 
-# Configuração da Página
+# Interface do webapp
 st.markdown('## 📁 Analítico')
 st.divider()
 tabela_selecionada = st.selectbox('Selecione a tabela desejada:',['Tabela de Vendas', 'Tabela de Preços'])
@@ -72,11 +74,9 @@ def mostrar_tabela_precos():
     else: 
         st.dataframe(df_precos)
     
-
+# Carregando dados:
 if tabela_selecionada == 'Tabela de Vendas':
     mostrar_tabela_vendas()
     
 if tabela_selecionada == 'Tabela de Preços':
     mostrar_tabela_precos()
-
-# Carregando os dados para a página
