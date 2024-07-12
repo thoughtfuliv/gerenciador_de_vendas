@@ -1,16 +1,14 @@
+# Importando as bibliotecas necessárias
 import streamlit as st 
 import utilidades
 from streamlit_carousel import carousel
 
-# streamlit run 'C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/01_Página_Inicial.py'
-# Sidebar
-#st.sidebar.title("Navegação")
-#st.sidebar.image('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/Pães.png')
+# comando para startar o webapp: streamlit run 'C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/painel_comercial/01_Página_Inicial.py'
 
+# Importando logo na sidebar
 utilidades.logo()
-#utilidades.contatos()
 
-# Home, Página Inicial
+# Interface do webapp:
 
 st.markdown("## Comece por aqui!")
 st.divider()
@@ -23,6 +21,7 @@ st.markdown( """
     Confira abaixo todas as tecnologias utilizadas neste projeto:
 """,unsafe_allow_html=True)
 
+# Carrossel de imagens:
 
 items = [
     dict(
@@ -56,7 +55,7 @@ carousel(items=items,fade=True, width=0.65, container_height= 400)
 
 st.divider()
 
-#st.image('C:/Users/paula/Documents/PROJETO_PAINEL_VENDAS/github.png',width=20)
+# Rodapé da página:
 
 st.markdown( """
     <div style="display: flex; justify-content: center; align-items: center;">
@@ -72,8 +71,6 @@ st.markdown(
     </div>""",
     unsafe_allow_html=True
 )
-
-#st.image('C:\Users\paula\Documents\PROJETO_PAINEL_VENDAS\linkedin.png',width=20)
 
 
 
