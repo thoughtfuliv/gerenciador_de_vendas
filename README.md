@@ -7,3 +7,5 @@ Tecnologias utilizadas:
 2. Pandas
 3. Plotly
 4. Streamlit
+
+Link de acesso: https://gerenciador-de-vendas.streamlit.app/
